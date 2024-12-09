@@ -69,7 +69,7 @@ public class myframe extends JFrame{
 	}
 	
 	private void initAttachment() {
-		JButton writer = new JButton("生产");
+		JButton writer = new JButton("写文件");
 		writer.addActionListener((e)->{
 			int randomInt = random.nextInt(10);
 			new Thread(){
@@ -79,7 +79,7 @@ public class myframe extends JFrame{
 				}
 			}.start();
 		});
-		JButton reader = new JButton("消费");
+		JButton reader = new JButton("读文件");
 		reader.addActionListener((e)->{
 			int randomInt = random.nextInt(10);
 			new Thread(){
@@ -107,25 +107,24 @@ public class myframe extends JFrame{
 		initWindow();
 	}
 	
-	public static void addWorkingProducer() {
-		
+	public static void addWorkingWriter() {
 		jLabel_writer.setText(WORKING_WRITER + count_writer.incrementAndGet());
 		
 	}
 	
-	public static void minusWorkingProducer() {
+	public static void minusWorkingWriter() {
 		
 		jLabel_writer.setText(WORKING_WRITER + count_writer.decrementAndGet());
 		
 	}
 	
-	public static void addWorkingConsumer() {
+	public static void addWorkingReader() {
 		
 		jLabel_reader.setText(WORKING_READER + count_reader.incrementAndGet());
 		
 	}
 	
-	public static void minusWorkingConsumer() {
+	public static void minusWorkingReader() {
 		
 		jLabel_reader.setText(WORKING_READER + count_reader.decrementAndGet());
 		

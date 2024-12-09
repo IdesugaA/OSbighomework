@@ -6,7 +6,7 @@ public class DataModel {
 	
 	private static final String INFO_STRING = "PRODUCT";
 	
-	private static String[] columns = {"product"};
+	private static String[] columns = {"content"};
 	
 	private static String[][] data = {};
 	
