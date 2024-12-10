@@ -1,16 +1,35 @@
 package procon.role;
 
+import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Semaphore;
 
 public class Buffer {
 	
-	public static final BlockingQueue<Product> ctner = new ArrayBlockingQueue<>(10);
+	private static ArrayList<Product> products = new ArrayList<>();
+	
+	private static Semaphore mutex = null;
+	
+	private static Semaphore empty = null;
+	
+	private static Semaphore full = null;
+	
+	public static void init(int amt) {
+		mutex = new Semaphore(1);
+		empty = new Semaphore(amt);
+		full = new Semaphore(0);
+	}
 	
 	public void put(Product product) {
 		try {
-			Thread.sleep(2000);
-			ctner.put(product);
+			empty.acquire();
+			mutex.acquire();
+			// 生产
+			sleep(800);
+			products.add(product);
+			mutex.release();
+			full.release();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -18,15 +37,28 @@ public class Buffer {
 	
 	public void take() {
 		try {
-			Thread.sleep(2000);
-			ctner.take();
+			full.acquire();
+			mutex.acquire();
+			// 消费
+			sleep(800);
+			products.remove(products.size()-1);
+			mutex.release();
+			empty.release();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public int size() {
-		return ctner.size();
+		return products.size();
+	}
+	
+	private void sleep(int time) {
+		long start = System.currentTimeMillis();
+		while(true) {
+			long end = System.currentTimeMillis();
+			if (end - start >= time) break;
+		}
 	}
 
 }

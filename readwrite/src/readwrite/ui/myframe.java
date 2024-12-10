@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 
 import readwrite.role.Reader;
-import readwrite.role.Content;
 import readwrite.role.DataModel;
 import readwrite.role.Writer;
 
@@ -41,12 +40,12 @@ public class myframe extends JFrame{
 	private static final AtomicInteger count_reader = new AtomicInteger(0); 
 	
 	
-	private void initRole() {
-		for (int i = 0 ; i < 10 ; i++) {
-			writers.add(new Writer());
+	private void initRole(int wriNum, int reaNum) {
+		for (int i = 0 ; i < wriNum ; i++) {
+			writers.add(new Writer(i));
 		}
-		for (int i = 0 ; i < 10 ; i++) {
-			readers.add(new Reader());
+		for (int i = 0 ; i < reaNum ; i++) {
+			readers.add(new Reader(i));
 		}
 	}
 	
@@ -102,8 +101,8 @@ public class myframe extends JFrame{
 		add(jLabel_reader);
 	}
 	
-	public myframe() {
-		initRole();
+	public myframe(int wriNum, int reaNum) {
+		initRole(wriNum, reaNum);
 		initWindow();
 	}
 	

@@ -4,7 +4,13 @@ import readwrite.ui.myframe;
 
 public class Writer {
 	
-	private final Buffer bf = new Buffer();
+	private final MyFile bf = new MyFile();
+	
+	private int id;
+	
+	public Writer (int id) {
+		this.id = id;
+	}
 	
 	public void write() {
 		System.out.println("正在尝试写文件...");

@@ -3,7 +3,7 @@ package readwrite.role;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
-public class Buffer {
+public class MyFile {
 	
 	
 	private static ArrayList<Content> file = new ArrayList<>();
@@ -23,22 +23,31 @@ public class Buffer {
 		mutex.release();
 	}
 	
-	public void take() throws InterruptedException{
+	public boolean take() throws InterruptedException{
 		cnt_mutex.acquire();
 		if (count == 0) {
 			mutex.acquire();
 		}
+		count++;
 		cnt_mutex.release();
-		System.out.println("开始读+1");
-		// 读文件
-		Thread.sleep(2000);
+		sleep(800);
+		if (file.isEmpty()) {
+			return false;
+		}
 		cnt_mutex.acquire();
 		count--;
 		if (count == 0) mutex.release();
 		cnt_mutex.release();
-		
+		return true;
 	}
 	
+	private void sleep(int time) {
+		long start = System.currentTimeMillis();
+		while(true) {
+			long end = System.currentTimeMillis();
+			if (end - start >= time) break;
+		}
+	}
 
 
 }

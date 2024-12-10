@@ -4,7 +4,13 @@ import procon.ui.myframe;
 
 public class Producer {
 	
+	private int id;
+	
 	private final Buffer bf = new Buffer();
+	
+	public Producer(int id) {
+		this.id = id;
+	}
 	
 	public void pruduce() {
 		System.out.println("正在生产...");
